@@ -1,49 +1,19 @@
 import Vuex from "vuex";
 import Vue from "vue";
 Vue.use(Vuex); // 应用vuex插件
+import counter from './counter'
+import loginUser from './loginUser'
 
-function delay(duration){
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve();
-    },duration);
-  })
-}
 const store = new Vuex.Store({
-  // 仓库配置对象
-  state: {
-    count: 0
+  modules: {
+    counter,
+    loginUser
   },
-  mutations: {
-    increase(state){
-      state.count++;
-    },
-    decrease(state){
-      state.count--;
-    },
-    power(state, payload){
-      state.count **= payload;
-    }
-  },
-  actions: {
-    async asyncIncrease(ctx){
-      await delay(1000)
-      ctx.commit("increase");
-    },
-    async asyncDecrease(ctx){
-      await delay(1000)
-      ctx.commit("decrease");
-    },
-    asyncPower(ctx, payload){
-      setTimeout(() => {
-        ctx.commit("power", payload);
-      },1000)
-    }
-  }
-}) 
+  strict: true
+})
 
 window.store = store;
-export default store; 
+export default store;
 
 
 
